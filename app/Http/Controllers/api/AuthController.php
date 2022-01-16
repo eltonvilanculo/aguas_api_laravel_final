@@ -35,78 +35,41 @@ class AuthController extends Controller
 
     }
 
-//     public function login(AuthRequest $request){
+    public function login(AuthRequest $request){
 
-//         $user = null ;
-//         try {
-//             //code...
-//           if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
-//             $user = User::where('username','=',$request->username)->first();
-//             $user->tokens()->delete();
-//           }
+        $user = null ;
+        try {
+            //code...
+          if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
+            $user = User::where('username','=',$request->username)->first();
+            $user->tokens()->delete();
+          }
 
-//             return response()->json(['response'=>['message'=>true, 'data'=>$user->createToken($user->username)]],200);
-//         } catch (\Throwable $th) {
-//             //throw $th;
-//             return response()->json(['response'=>['message'=>false, 'data'=>null ,'exception'=>$th->getMessage()]],500);
+            return response()->json(['response'=>['message'=>true, 'data'=>$user->createToken($user->username)]],200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['response'=>['message'=>false, 'data'=>null ,'exception'=>$th->getMessage()]],500);
 
-//     }
-//     }
+    }
+    }
 
-//     public function signup(SignUpRequest $request){
+    public function signup(SignUpRequest $request){
 
-//         $user=User::all()->count();
-//         $data=$request->all();
-//         $data['password'] = bcrypt($request->password);
-//         $data['utilizador_id']="AG$user";
+        $user=User::all()->count();
+        $data=$request->all();
+        $data['password'] = bcrypt($request->password);
+        $data['utilizador_id']="AG$user";
 
-//         try {
-//             //code...
+        try {
+            //code...
 
-//             $user = User::create($data);
-//             return response()->json(['response'=>['message'=>true, 'data'=>$user]],200);
-//         } catch (\Throwable $th) {
-//             //throw $th;
-//             return response()->json(['response'=>['message'=>false, 'data'=>null ,'exception'=>$th->getMessage()]],500);
+            $user = User::create($data);
+            return response()->json(['response'=>['message'=>true, 'data'=>$user]],200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['response'=>['message'=>false, 'data'=>null ,'exception'=>$th->getMessage()]],500);
 
-//     }
-// }
-
-public function login(AuthRequest $request){
-
-    $user = null ;
-    try {
-        //code...
-
-      if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
-        $user = User::where('username','=',$request->username)->first();
-      }
-
-        return response()->json(['response'=>['message'=>true, 'data'=>$user]],200);
-    } catch (\Throwable $th) {
-        //throw $th;
-        return response()->json(['response'=>['message'=>false, 'data'=>null ,'exception'=>$th->getMessage()]],500);
-
-}
-}
-
-public function signup(SignUpRequest $request){
-
-    $user=User::all()->count();
-    $data=$request->all();
-    $data['password'] = bcrypt($request->password);
-    $data['utilizador_id']="AG$user";
-
-    try {
-        //code...
-
-        $user = User::create($data);
-        return response()->json(['response'=>['message'=>true, 'data'=>$user]],200);
-    } catch (\Throwable $th) {
-        //throw $th;
-        return response()->json(['response'=>['message'=>false, 'data'=>null ,'exception'=>$th->getMessage()]],500);
-
-}
+    }
 }
 
 }
